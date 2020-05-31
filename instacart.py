@@ -15,7 +15,7 @@ import os
 import pandas as pd
 import xgboost as xgb
 from sklearn.model_selection import GridSearchCV
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 import gc
 gc.enable() 
@@ -917,8 +917,8 @@ xg = xgb.train(dtrain = dm_train, params = params, num_boost_round = 10)
 # In[102]:
 
 
-xgb.plot_importance(xg)
-plt.show()
+#xgb.plot_importance(xg)
+#plt.show()
 
 
 # ## 4.3. Make predictions
