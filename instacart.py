@@ -63,7 +63,7 @@ products = pd.read_csv('../input/products.csv')
 # In[6]:
 
 
-orders = orders.loc[orders.user_id.isin(orders.user_id.drop_duplicates().sample(frac=0.1, random_state=25))]
+#orders = orders.loc[orders.user_id.isin(orders.user_id.drop_duplicates().sample(frac=0.1, random_state=25))]
 
 
 # In[7]:
