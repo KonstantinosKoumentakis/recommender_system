@@ -1013,5 +1013,5 @@ sub.shape[0]
 # In[117]:
 
 
-sub.to_csv('/home/k_koumentakis/instacart_repository/sub.csv', index=False)
+sub.to_csv('/home/k_koumentakis/instacart_repository/input/sub.csv', index=False)
 
