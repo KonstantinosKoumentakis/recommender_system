@@ -835,12 +835,6 @@ gc.collect()
 # In[ ]:
 
 
-#'max_depth' : [5, 6], 'colsample_bytree' : [0.3, 0.4]
-#{'max_depth' :  6, 'colsample_bytree' : 0,3}
-
-#{'max_depth' : [6], 'subsample_bytree' : [0.3, 0.4], 'colsample_bytree' : [0.2, 0.3]}
-#{'colsample_bytree': 0.3, 'max_depth': 6, 'subsample_bytree': 0.3}
-
 #{'max_depth' : [6], 'subsample_bytree' : [0.3], 'colsample_bytree' : [0.3], 'alpha' : [0.3, 0.4], 'gamma' : [0.1, 0.2]}
 #{'alpha': 0.4, 'colsample_bytree': 0.3, 'gamma': 0.1, 'max_depth': 6, 'subsample_bytree': 0.3}
 #0.29343327433248384
@@ -851,46 +845,53 @@ gc.collect()
 # In[ ]:
 
 
-#param_grid = {'max_depth' : [6], 'subsample' : [0.3], 'colsample_bytree' : [0.3], 'lambda' : [0.3, 0.4], 'gamma' : [0.1, 0.2]}
+param_grid = {'max_depth' : [5, 6], 'subsample' : [0.9]}
 
-#‘max_depth’ : number                  Μέγιστο βάθος ενός δέντρου
-#‘subsample’ : percentage              Ποσοστό δεδομένων σε κάθε δέντρο
-#‘colsample_bytree’ : percentage       Ποσοστό μεταβλητών σε κάθε δέντρο
-#‘eta’ : percentage                    Ρυθμός μάθησης. Όσο μικρότερο, τόσο περισσότερα δέντρα χρειάζονται
-#‘lambda’ : percentage                 l2 regularization στα leaf weights
-#‘gamma’ : percentage                  ελάχιστο απαιτούμενο loss reduction για να γίνει ένα split
+#‘max_depth’ : 6                Μέγιστο βάθος ενός δέντρου
+#‘subsample’ : 1.0              Ποσοστό δεδομένων σε κάθε δέντρο
+#‘colsample_bytree’ : 1.0       Ποσοστό μεταβλητών σε κάθε δέντρο
+#‘eta’ : 0.3                    Ρυθμός μάθησης. Όσο μικρότερο, τόσο περισσότερα δέντρα χρειάζονται
+#‘lambda’ : 1.0                 l2 regularization στα leaf weights
+#‘gamma’ : 0.0                  ελάχιστο απαιτούμενο loss reduction για να γίνει ένα split
 #https://xgboost.readthedocs.io/en/latest/parameter.html
 
 
 # In[ ]:
 
 
-#xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'exact', eval_metric = 'error@0.21',  num_boost_round = 10)
+xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'exact', eval_metric = 'logloss',  num_boost_round = 10)
 
 
 # In[ ]:
 
 
-#grid_search = GridSearchCV(estimator = xg, param_grid = param_grid, cv = 3, verbose = 2, scoring = 'f1', n_jobs = 2)
+grid_search = GridSearchCV(estimator = xg, param_grid = param_grid, cv = 3, verbose = 2, n_jobs = 2)
 
 
 # In[ ]:
 
 
-#xg.get_params()
+xg.get_params()
 
 
 # In[ ]:
 
 
-#grid_search.fit(data_train.drop('reordered', axis=1), data_train.reordered)
+grid_search.fit(data_train.drop('reordered', axis=1), data_train.reordered)
 
 
 # In[ ]:
 
 
-#print(grid_search.best_params_)
-#print(grid_search.best_score_)
+results_dictionary = grid_search.best_params_
+results_dictionary['score'] = grid_search.best_score_
+print(results_dictionary)
+
+
+# In[ ]:
+
+
+results.to_csv('results.csv', index=False)
 
 
 # ## 4.2. Train model
@@ -898,20 +899,20 @@ gc.collect()
 # In[99]:
 
 
-dm_train = xgb.DMatrix(data = data_train.drop('reordered', axis=1), label = data_train.reordered)
-dm_test = xgb.DMatrix(data = data_test)
+#dm_train = xgb.DMatrix(data = data_train.drop('reordered', axis=1), label = data_train.reordered)
+#dm_test = xgb.DMatrix(data = data_test)
 
 
 # In[100]:
 
 
-params = {'objective': 'binary:logistic', 'tree_method':'exact', 'eval_metric' : 'error@0.21', 'alpha': 0.4, 'colsample_bytree': 0.3, 'gammma': 0.1, 'max_depth': 6, 'subsample_bytree': 0.3}
+#params = {'objective': 'binary:logistic', 'tree_method':'exact', 'eval_metric' : 'error@0.21', 'alpha': 0.4, 'colsample_bytree': 0.3, 'gammma': 0.1, 'max_depth': 6, 'subsample_bytree': 0.3}
 
 
 # In[101]:
 
 
-xg = xgb.train(dtrain = dm_train, params = params, num_boost_round = 10)
+#xg = xgb.train(dtrain = dm_train, params = params, num_boost_round = 10)
 
 
 # In[102]:
@@ -926,8 +927,8 @@ xg = xgb.train(dtrain = dm_train, params = params, num_boost_round = 10)
 # In[105]:
 
 
-test_pred = (xg.predict(dm_test) >= 0.21)
-test_pred[0:20]
+#test_pred = (xg.predict(dm_test) >= 0.21)
+#test_pred[0:20]
 
 
 # # 5. Prepare submission file
@@ -935,83 +936,83 @@ test_pred[0:20]
 # In[106]:
 
 
-data_test['prediction'] = test_pred
-data_test.head()
+#data_test['prediction'] = test_pred
+#data_test.head()
 
 
 # In[107]:
 
 
-final = data_test.reset_index()
-final = final[['product_id', 'user_id', 'prediction']]
-gc.collect()
-final.head()
+#final = data_test.reset_index()
+#final = final[['product_id', 'user_id', 'prediction']]
+#gc.collect()
+#final.head()
 
 
 # In[108]:
 
 
-orders_test = orders.loc[orders.eval_set=='test',("user_id", "order_id") ]
-orders_test.head()
+#orders_test = orders.loc[orders.eval_set=='test',("user_id", "order_id") ]
+#orders_test.head()
 
 
 # In[109]:
 
 
-final = final.merge(orders_test, on='user_id', how='left')
-final.head()
+#final = final.merge(orders_test, on='user_id', how='left')
+#final.head()
 
 
 # In[110]:
 
 
-final = final.drop('user_id', axis=1)
-final['product_id'] = final.product_id.astype(int)
+#final = final.drop('user_id', axis=1)
+#final['product_id'] = final.product_id.astype(int)
 
-del orders, test_pred
-del orders_test, data_test
-gc.collect()
+#del orders, test_pred
+#del orders_test, data_test
+#gc.collect()
 
-final.head()
+#final.head()
 
 
 # In[111]:
 
 
-d = dict()
-for row in final.itertuples():
-    if row.prediction== 1:
-        try:
-            d[row.order_id] += ' ' + str(row.product_id)
-        except:
-            d[row.order_id] = str(row.product_id)
+#d = dict()
+#for row in final.itertuples():
+#    if row.prediction== 1:
+#        try:
+#            d[row.order_id] += ' ' + str(row.product_id)
+#        except:
+#            d[row.order_id] = str(row.product_id)
 
-for order in final.order_id:
-    if order not in d:
-        d[order] = 'None'
+#for order in final.order_id:
+#    if order not in d:
+#        d[order] = 'None'
         
-gc.collect()
+#gc.collect()
 
 
 # In[112]:
 
 
-sub = pd.DataFrame.from_dict(d, orient='index')
+#sub = pd.DataFrame.from_dict(d, orient='index')
 
-sub.reset_index(inplace=True)
-sub.columns = ['order_id', 'products']
+#sub.reset_index(inplace=True)
+#sub.columns = ['order_id', 'products']
 
-sub.head()
+#sub.head()
 
 
 # In[113]:
 
 
-sub.shape[0]
+#sub.shape[0]
 
 
 # In[117]:
 
 
-sub.to_csv('sub.csv', index=False)
+#sub.to_csv('sub.csv', index=False)
 
