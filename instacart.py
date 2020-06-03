@@ -63,7 +63,7 @@ products = pd.read_csv('../input/products.csv')
 # In[6]:
 
 
-orders = orders.loc[orders.user_id.isin(orders.user_id.drop_duplicates().sample(frac=0.05, random_state=25))]
+#orders = orders.loc[orders.user_id.isin(orders.user_id.drop_duplicates().sample(frac=0.05, random_state=25))]
 
 
 # In[7]:
@@ -835,9 +835,9 @@ gc.collect()
 # In[ ]:
 
 
-#{'max_depth' : [6], 'subsample_bytree' : [0.3], 'colsample_bytree' : [0.3], 'alpha' : [0.3, 0.4], 'gamma' : [0.1, 0.2]}
-#{'alpha': 0.4, 'colsample_bytree': 0.3, 'gamma': 0.1, 'max_depth': 6, 'subsample_bytree': 0.3}
-#0.29343327433248384
+#{'max_depth' : [5, 6], 'subsample' : [0.8, 0.9]}
+#
+#
 
 
 # ## 4.1. Tune model with Grid Search
@@ -845,7 +845,7 @@ gc.collect()
 # In[ ]:
 
 
-param_grid = {'max_depth' : [5, 6], 'subsample' : [0.9, 1]}
+param_grid = {'max_depth' : [5, 6], 'subsample' : [0.8, 0.9]}
 
 #‘max_depth’ : 6                Μέγιστο βάθος ενός δέντρου
 #‘subsample’ : 1.0              Ποσοστό δεδομένων σε κάθε δέντρο
@@ -866,7 +866,7 @@ xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'exact', eva
 # In[ ]:
 
 
-grid_search = GridSearchCV(estimator = xg, param_grid = param_grid, cv = 3, verbose = 2, n_jobs = 8)
+grid_search = GridSearchCV(estimator = xg, param_grid = param_grid, cv = 3, verbose = 2, n_jobs = -1)
 
 
 # In[ ]:
