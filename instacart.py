@@ -845,14 +845,15 @@ gc.collect()
 # In[ ]:
 
 
-param_grid = {'max_depth' : [5, 6], 'subsample' : [0.9]}
+param_grid = {'max_depth' : [5, 6], 'subsample' : [0.9, 1]}
 
 #‘max_depth’ : 6                Μέγιστο βάθος ενός δέντρου
 #‘subsample’ : 1.0              Ποσοστό δεδομένων σε κάθε δέντρο
 #‘colsample_bytree’ : 1.0       Ποσοστό μεταβλητών σε κάθε δέντρο
-#‘eta’ : 0.3                    Ρυθμός μάθησης. Όσο μικρότερο, τόσο περισσότερα δέντρα χρειάζονται
 #‘lambda’ : 1.0                 l2 regularization στα leaf weights
 #‘gamma’ : 0.0                  ελάχιστο απαιτούμενο loss reduction για να γίνει ένα split
+
+#‘eta’ : 0.3                    Ρυθμός μάθησης. Όσο μικρότερο, τόσο περισσότερα δέντρα χρειάζονται
 #https://xgboost.readthedocs.io/en/latest/parameter.html
 
 
@@ -865,7 +866,7 @@ xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'exact', eva
 # In[ ]:
 
 
-grid_search = GridSearchCV(estimator = xg, param_grid = param_grid, cv = 3, verbose = 2, n_jobs = 2)
+grid_search = GridSearchCV(estimator = xg, param_grid = param_grid, cv = 3, verbose = 2, n_jobs = 8)
 
 
 # In[ ]:
@@ -882,16 +883,8 @@ grid_search.fit(data_train.drop('reordered', axis=1), data_train.reordered)
 
 # In[ ]:
 
-
-results_dictionary = grid_search.best_params_
-results_dictionary['score'] = grid_search.best_score_
-print(results_dictionary)
-
-
-# In[ ]:
-
-
-results.to_csv('results.csv', index=False)
+print('The best params are: ', grid_search.best_params_)
+print('The achieved score with these params is: ', grid_search.best_score_)
 
 
 # ## 4.2. Train model
