@@ -845,7 +845,7 @@ gc.collect()
 # In[ ]:
 
 
-param_grid = {'max_depth' : [6], 'subsample' : [0.6, 0.7, 0.8], ‘colsample_bytree’ : [0.6, 0.7, 0.8]}
+param_grid = {'max_depth' : [6], 'subsample' : [0.6, 0.7, 0.8], 'colsample_bytree' : [0.6, 0.7, 0.8]}
 
 #‘max_depth’ : 6                Μέγιστο βάθος ενός δέντρου
 #‘subsample’ : 1.0              Ποσοστό δεδομένων σε κάθε δέντρο
