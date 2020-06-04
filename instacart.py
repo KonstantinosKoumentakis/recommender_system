@@ -860,13 +860,13 @@ param_grid = {'max_depth' : [5, 6], 'subsample' : [0.8, 0.9]}
 # In[ ]:
 
 
-xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'exact', eval_metric = 'logloss',  num_boost_round = 10)
+xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'gpu_hist', gpu_id = 0, eval_metric = 'logloss',  num_boost_round = 10)
 
 
 # In[ ]:
 
 
-grid_search = GridSearchCV(estimator = xg, param_grid = param_grid, cv = 3, verbose = 2, n_jobs = -1)
+grid_search = GridSearchCV(estimator = xg, param_grid = param_grid, cv = 3, verbose = 2, n_jobs = 1)
 
 
 # In[ ]:
