@@ -844,15 +844,16 @@ gc.collect()
 #0.9103629041916839
 
 #{'max_depth' : [6], 'subsample' : [0.7], 'colsample_bytree' : [0.7], 'lambda' : [0.8, 0.9, 1.0], 'gamma' : [0.0, 0.1, 0.2]}
-#{'subsample': 0.7, 'colsample_bytree': 0.7, 'max_depth': 6, 'gamma': 0.1, 'lambda': 0.9}
-#0.9103625501952232
+#{'subsample': 0.7, 'colsample_bytree': 0.7, 'max_depth': 6, 'gamma': 0.2, 'lambda': 0.9}
+#0.9103699841208988
+
 
 # ## 4.1. Tune model with Grid Search
 
 # In[ ]:
 
 
-param_grid = {'max_depth' : [6, 7, 8], 'subsample' : [0.6, 0.7, 0.8], 'colsample_bytree' : [0.7], 'lambda' : [0.9], 'gamma' : [0.1]}
+param_grid = {'max_depth' : [6, 7, 8], 'subsample' : [0.7], 'colsample_bytree' : [0.7], 'lambda' : [0.9], 'gamma' : [0.2, 0.3, 0.4]}
 
 #‘max_depth’ : 6                Μέγιστο βάθος ενός δέντρου
 #‘subsample’ : 1.0              Ποσοστό δεδομένων σε κάθε δέντρο
@@ -873,7 +874,7 @@ xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'gpu_hist', 
 # In[ ]:
 
 
-grid_search = GridSearchCV(estimator = xg, param_grid = param_grid, cv = 3, verbose = 2, n_jobs = 1)
+grid_search = GridSearchCV(estimator = xg, param_grid = param_grid, cv = 3, verbose = 2, n_jobs = 2)
 
 
 # In[ ]:
