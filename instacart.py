@@ -923,7 +923,7 @@ dm_test = xgb.DMatrix(data = data_test)
 # In[100]:
 
 
-params = {'objective': 'binary:logistic', 'tree_method':'gpu_hist', 'gpu_id' = 0, 'eval_metric' : 'logloss', 'subsample': 0.7, 'colsample_bytree': 0.8, 'max_depth': 8, 'gamma': 0.2, 'lambda': 0.9}
+params = {'objective' : 'binary : logistic', 'tree_method' : 'gpu_hist', 'eval_metric' : 'logloss', 'subsample': 0.7, 'colsample_bytree': 0.8, 'max_depth': 8, 'gamma': 0.2, 'lambda': 0.9}
 
 
 # In[101]:
