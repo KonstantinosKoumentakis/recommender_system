@@ -884,31 +884,31 @@ param_grid = {'max_depth' : [8], 'subsample' : [0.7], 'colsample_bytree' : [0.8,
 # In[ ]:
 
 
-#xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'gpu_hist', eval_metric = 'logloss',  num_boost_round = 10)
+xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'gpu_hist', eval_metric = 'logloss',  num_boost_round = 10)
 
 
 # In[ ]:
 
 
-#grid_search = GridSearchCV(estimator = xg, param_grid = param_grid, cv = 3, verbose = 2, n_jobs = 2)
+grid_search = GridSearchCV(estimator = xg, param_grid = param_grid, cv = 3, verbose = 2, n_jobs = 2)
 
 
 # In[ ]:
 
 
-#xg.get_params()
+xg.get_params()
 
 
 # In[ ]:
 
 
-#grid_search.fit(data_train.drop('reordered', axis=1), data_train.reordered)
+grid_search.fit(data_train.drop('reordered', axis=1), data_train.reordered)
 
 
 # In[ ]:
 
-#print('The best params are: ', grid_search.best_params_)
-#print('The achieved score with these params is: ', grid_search.best_score_)
+print('The best params are: ', grid_search.best_params_)
+print('The achieved score with these params is: ', grid_search.best_score_)
 
 
 # ## 4.2. Train model
@@ -916,20 +916,20 @@ param_grid = {'max_depth' : [8], 'subsample' : [0.7], 'colsample_bytree' : [0.8,
 # In[99]:
 
 
-dm_train = xgb.DMatrix(data = data_train.drop('reordered', axis=1), label = data_train.reordered)
-dm_test = xgb.DMatrix(data = data_test)
+#dm_train = xgb.DMatrix(data = data_train.drop('reordered', axis=1), label = data_train.reordered)
+#dm_test = xgb.DMatrix(data = data_test)
 
 
 # In[100]:
 
 
-params = {'objective' : 'binary:logistic', 'tree_method' : 'gpu_hist', 'eval_metric' : 'logloss', 'subsample': 0.7, 'colsample_bytree': 0.8, 'max_depth': 8, 'gamma': 0.2, 'lambda': 0.9}
+#params = {'objective' : 'binary:logistic', 'tree_method' : 'gpu_hist', 'eval_metric' : 'logloss', 'subsample': 0.7, 'colsample_bytree': 0.8, 'max_depth': 8, 'gamma': 0.2, 'lambda': 0.9}
 
 
 # In[101]:
 
 
-xg = xgb.train(dtrain = dm_train, params = params, num_boost_round = 10)
+#xg = xgb.train(dtrain = dm_train, params = params, num_boost_round = 10)
 
 
 # In[102]:
@@ -944,8 +944,8 @@ xg = xgb.train(dtrain = dm_train, params = params, num_boost_round = 10)
 # In[105]:
 
 
-test_pred = (xg.predict(dm_test) >= 0.21)
-test_pred[0:20]
+#test_pred = (xg.predict(dm_test) >= 0.21)
+#test_pred[0:20]
 
 
 # # 5. Prepare submission file
@@ -953,83 +953,83 @@ test_pred[0:20]
 # In[106]:
 
 
-data_test['prediction'] = test_pred
-data_test.head()
+#data_test['prediction'] = test_pred
+#data_test.head()
 
 
 # In[107]:
 
 
-final = data_test.reset_index()
-final = final[['product_id', 'user_id', 'prediction']]
-gc.collect()
-final.head()
+#final = data_test.reset_index()
+#final = final[['product_id', 'user_id', 'prediction']]
+#gc.collect()
+#final.head()
 
 
 # In[108]:
 
 
-orders_test = orders.loc[orders.eval_set=='test',("user_id", "order_id") ]
-orders_test.head()
+#orders_test = orders.loc[orders.eval_set=='test',("user_id", "order_id") ]
+#orders_test.head()
 
 
 # In[109]:
 
 
-final = final.merge(orders_test, on='user_id', how='left')
-final.head()
+#final = final.merge(orders_test, on='user_id', how='left')
+#final.head()
 
 
 # In[110]:
 
 
-final = final.drop('user_id', axis=1)
-final['product_id'] = final.product_id.astype(int)
+#final = final.drop('user_id', axis=1)
+#final['product_id'] = final.product_id.astype(int)
 
-del orders, test_pred
-del orders_test, data_test
-gc.collect()
+#del orders, test_pred
+#del orders_test, data_test
+#gc.collect()
 
-final.head()
+#final.head()
 
 
 # In[111]:
 
 
-d = dict()
-for row in final.itertuples():
-    if row.prediction== 1:
-        try:
-            d[row.order_id] += ' ' + str(row.product_id)
-        except:
-            d[row.order_id] = str(row.product_id)
+#d = dict()
+#for row in final.itertuples():
+#    if row.prediction== 1:
+#        try:
+#            d[row.order_id] += ' ' + str(row.product_id)
+#        except:
+#            d[row.order_id] = str(row.product_id)
 
-for order in final.order_id:
-    if order not in d:
-        d[order] = 'None'
+#for order in final.order_id:
+#    if order not in d:
+#        d[order] = 'None'
         
-gc.collect()
+#gc.collect()
 
 
 # In[112]:
 
 
-sub = pd.DataFrame.from_dict(d, orient='index')
+#sub = pd.DataFrame.from_dict(d, orient='index')
 
-sub.reset_index(inplace=True)
-sub.columns = ['order_id', 'products']
+#sub.reset_index(inplace=True)
+#sub.columns = ['order_id', 'products']
 
-sub.head()
+#sub.head()
 
 
 # In[113]:
 
 
-sub.shape[0]
+#sub.shape[0]
 
 
 # In[117]:
 
 
-sub.to_csv('sub.csv', index=False)
+#sub.to_csv('sub.csv', index=False)
 
