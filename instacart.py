@@ -843,12 +843,16 @@ gc.collect()
 #{'subsample': 0.7, 'colsample_bytree': 0.7, 'max_depth': 6}
 #0.9103629041916839
 
+#{'max_depth' : [6], 'subsample' : [0.7], 'colsample_bytree' : [0.7], 'lambda' : [0.8, 0.9, 1.0], 'gamma' : [0.0, 0.1, 0.2]}
+#{'subsample': 0.7, 'colsample_bytree': 0.7, 'max_depth': 6, 'gamma': 0.1, 'lambda': 0.9}
+#0.9103625501952232
+
 # ## 4.1. Tune model with Grid Search
 
 # In[ ]:
 
 
-param_grid = {'max_depth' : [6], 'subsample' : [0.7], 'colsample_bytree' : [0.7], 'lambda' : [0.8, 0.9, 1.0], 'gamma' : [0.0, 0.1, 0.2]}
+param_grid = {'max_depth' : [6, 7, 8], 'subsample' : [0.6, 0.7, 0.8], 'colsample_bytree' : [0.7], 'lambda' : [0.9], 'gamma' : [0.1]}
 
 #‘max_depth’ : 6                Μέγιστο βάθος ενός δέντρου
 #‘subsample’ : 1.0              Ποσοστό δεδομένων σε κάθε δέντρο
