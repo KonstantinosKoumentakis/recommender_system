@@ -884,7 +884,7 @@ param_grid = {'max_depth' : [8], 'subsample' : [0.7], 'colsample_bytree' : [0.8,
 # In[ ]:
 
 
-#xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'gpu_hist', gpu_id = 0, eval_metric = 'logloss',  num_boost_round = 10)
+#xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'gpu_hist', eval_metric = 'logloss',  num_boost_round = 10)
 
 
 # In[ ]:
