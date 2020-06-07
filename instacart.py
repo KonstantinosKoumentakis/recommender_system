@@ -579,7 +579,7 @@ gc.collect()
 param_grid = {'max_depth' : [9], 'subsample' : [0.8], 'colsample_bytree' : [0.7], 'lambda' : [1], 'gamma' : [0.3], 'min_child_weight' : [3], 'eta' : [0.01, 0.05, 0.1]}
 
 
-xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'gpu_hist', eval_metric = 'logloss',  num_boost_round = 100)
+xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'gpu_hist', eval_metric = 'logloss',  num_boost_round = 1000)
 
 
 grid_search = GridSearchCV(estimator = xg, param_grid = param_grid, cv = 3, verbose = 2, n_jobs = 2)
