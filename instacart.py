@@ -602,6 +602,55 @@ gc.collect()
 #0.9105284565364915
 
 
+#### KOBOU'S TUNING
+# learning_rate = 0.1 n_estimators = 140
+#{'max_depth' : [7, 6], 'min_child_weight' : [2, 3, 4]}
+#('The best params are: ', {'max_depth': 7, 'min_child_weight': 3})
+#('The achieved score with these params is: ', 0.9105473363477312)
+
+# {'max_depth' : [7, 8, 9]}
+# 'The best params are: ', {'max_depth': 9})
+# ('The achieved score with these params is: ', 0.9105845059761093)
+
+#{'gamma' : [0.1, 0.2, 0.3], 'lambda' : [0.8, 0.9, 1] }
+#'The best params are: ', {'gamma': 0.3, 'lambda': 1})
+#('The achieved score with these params is: ', 0.9105896979242002)
+#('The best params are: ', {'gamma': 0.1, 'lambda': 0.9})
+#('The achieved score with these params is: ', 0.9105918219029646)
+# ('The best params are: ', {'gamma': 0.2, 'lambda': 0.8})
+#('The achieved score with these params is: ', 0.9105989018321795)
+#('The best params are: ', {'gamma': 0.2, 'lambda': 1})
+#('The achieved score with these params is: ', 0.9105950078711113)
+
+# {'gamma' : [0.5, 0.4, 0.3, 0.2, 0.1], 'lambda' : [1] 
+# ('The best params are: ', {'gamma': 0.3, 'lambda': 1})
+# ('The achieved score with these params is: ', 0.9105932378888076)
+
+# {'subsample' : [0.6, 0.7, 0.8, 0.9], 'colsample_bytree' : [0.6, 0.7, 0.8, 0.9]}
+#('The best params are: ', {'subsample': 0.8, 'colsample_bytree': 0.7})
+#('The achieved score with these params is: ', 0.9106162476587559)
+
+#  'reg_alpha':[1e-5, 1e-2, 0.1, 1, 100] }
+#('The best params are: ', {'reg_alpha': 1})
+#('The achieved score with these params is: ', 0.9106130616906092)
+
+#  { 'reg_alpha':[0.1 ,0.5, 1, 3, 16] }
+# ('The best params are: ', {'reg_alpha': 16})
+#('The achieved score with these params is: ', 0.9106256875643758)
+
+#{ 'reg_alpha':[8, 16, 35, 60, 90] }
+# ('The best params are: ', {'reg_alpha': 16})
+# ('The achieved score with these params is: ', 0.910627221549039)
+
+# { 'reg_alpha':[12, 14, 16, 18, 21, 90] }
+# ('The best params are: ', {'reg_alpha': 14})
+# ('The achieved score with these params is: ', 0.9106384314369625)
+
+#  { 'reg_alpha':[13, 14, 15] }
+#'The best params are: ', {'reg_alpha': 13})
+#('The achieved score with these params is: ', 0.9106698191231484)
+
+
 ## 4.1. Tune model with Grid Search
 
 
@@ -639,7 +688,15 @@ print('The achieved score with these params is: ', grid_search.best_score_)
 #dm_test = xgb.DMatrix(data = data_test)
 
 
-#params = {'objective' : 'binary:logistic', 'tree_method' : 'gpu_hist', 'eval_metric' : 'logloss', 'subsample': 0.7, 'colsample_bytree': 0.8, 'max_depth': 8, 'gamma': 0.2, 'lambda': 0.9}
+#params = {  'objective' : 'binary:logistic',
+#             'tree_method' : 'gpu_hist',
+#             'eval_metric' : 'logloss',
+#             'subsample': 0.8, 
+#             'min_child_weight': 3,
+#             'colsample_bytree': 0.7,
+#             'max_depth': 9, 
+#             'gamma': 0.3,
+#             'lambda': 0.9}
 
 
 #xg = xgb.train(dtrain = dm_train, params = params, num_boost_round = 10)
