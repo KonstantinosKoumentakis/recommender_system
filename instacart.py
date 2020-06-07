@@ -654,7 +654,7 @@ gc.collect()
 ## 4.1. Tune model with Grid Search
 
 
-param_grid = {'max_depth' : [8], 'subsample' : [0.7], 'colsample_bytree' : [0.8, 0.9], 'lambda' : [0.9], 'gamma' : [0.2, 0.3, 0.4]}
+param_grid = {'max_depth' : [9], 'subsample' : [0.8], 'colsample_bytree' : [0.7], 'lambda' : [1], 'gamma' : [0.3], 'min_child_weight' : [3], 'eta' : [0.01, 0.05, 0.1]}
 
 #‘max_depth’ : 6                Μέγιστο βάθος ενός δέντρου
 #‘subsample’ : 1.0              Ποσοστό δεδομένων σε κάθε δέντρο
@@ -666,7 +666,7 @@ param_grid = {'max_depth' : [8], 'subsample' : [0.7], 'colsample_bytree' : [0.8,
 #https://xgboost.readthedocs.io/en/latest/parameter.html
 
 
-xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'gpu_hist', eval_metric = 'logloss',  num_boost_round = 10)
+xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'gpu_hist', eval_metric = 'logloss',  num_boost_round = 100)
 
 
 grid_search = GridSearchCV(estimator = xg, param_grid = param_grid, cv = 3, verbose = 2, n_jobs = 2)
@@ -688,15 +688,15 @@ print('The achieved score with these params is: ', grid_search.best_score_)
 #dm_test = xgb.DMatrix(data = data_test)
 
 
-#params = {  'objective' : 'binary:logistic',
-#             'tree_method' : 'gpu_hist',
-#             'eval_metric' : 'logloss',
-#             'subsample': 0.8, 
-#             'min_child_weight': 3,
-#             'colsample_bytree': 0.7,
-#             'max_depth': 9, 
-#             'gamma': 0.3,
-#             'lambda': 0.9}
+#params = {'objective' : 'binary:logistic',
+           'tree_method' : 'gpu_hist',
+           'eval_metric' : 'logloss',
+           'subsample': 0.8, 
+           'min_child_weight': 3,
+           'colsample_bytree': 0.7,
+           'max_depth': 9, 
+           'gamma' : 0.3,
+           'lambda' : 1}
 
 
 #xg = xgb.train(dtrain = dm_train, params = params, num_boost_round = 10)
