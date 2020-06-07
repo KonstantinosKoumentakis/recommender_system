@@ -576,7 +576,7 @@ gc.collect()
 ## 4.1. Tune model with Grid Search
 
 
-param_grid = {'max_depth' : [9], 'subsample' : [0.8], 'colsample_bytree' : [0.7], 'lambda' : [1], 'gamma' : [0.3], 'min_child_weight' : [3], 'eta' : [0.01, 0.05, 0.1]}
+param_grid = {'max_depth' : [9], 'subsample' : [0.8], 'colsample_bytree' : [0.7], 'lambda' : [1], 'gamma' : [0.3], 'min_child_weight' : [3], 'eta' : [0.03, 0.04, 0.05, 0.06, 0.07]}
 
 
 xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'gpu_hist', eval_metric = 'logloss',  num_boost_round = 1000)
