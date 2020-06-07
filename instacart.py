@@ -689,14 +689,14 @@ print('The achieved score with these params is: ', grid_search.best_score_)
 
 
 #params = {'objective' : 'binary:logistic',
-           'tree_method' : 'gpu_hist',
-           'eval_metric' : 'logloss',
-           'subsample': 0.8, 
-           'min_child_weight': 3,
-           'colsample_bytree': 0.7,
-           'max_depth': 9, 
-           'gamma' : 0.3,
-           'lambda' : 1}
+#           'tree_method' : 'gpu_hist',
+#           'eval_metric' : 'logloss',
+#           'subsample': 0.8, 
+#           'min_child_weight': 3,
+#           'colsample_bytree': 0.7,
+#           'max_depth': 9, 
+#           'gamma' : 0.3,
+#           'lambda' : 1}
 
 
 #xg = xgb.train(dtrain = dm_train, params = params, num_boost_round = 10)
