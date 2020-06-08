@@ -576,44 +576,44 @@ gc.collect()
 ## 4.1. Tune model with Grid Search
 
 
-#param_grid = {'max_depth' : [9], 'subsample' : [0.8], 'colsample_bytree' : [0.7], 'lambda' : [1], 'gamma' : [0.3], 'min_child_weight' : [3], 'eta' : [0.03, 0.04, 0.05, 0.06, 0.07]}
+param_grid = {'max_depth' : [9], 'subsample' : [0.8], 'colsample_bytree' : [0.7], 'lambda' : [1], 'gamma' : [0.3], 'min_child_weight' : [3], 'eta' : [0.037, 0.038, 0.039, 0.04, 0.041, 0.042, 0.043]}
 
 
-#xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'gpu_hist', eval_metric = 'logloss',  num_boost_round = 1000)
+xg = xgb.XGBClassifier(objective = 'binary:logistic', tree_method = 'gpu_hist', eval_metric = 'logloss',  num_boost_round = 1000)
 
 
-#grid_search = GridSearchCV(estimator = xg, param_grid = param_grid, cv = 3, verbose = 2, n_jobs = 2)
+grid_search = GridSearchCV(estimator = xg, param_grid = param_grid, cv = 3, verbose = 2, n_jobs = 2)
 
 
-#xg.get_params()
+xg.get_params()
 
 
-#grid_search.fit(data_train.drop('reordered', axis=1), data_train.reordered)
+grid_search.fit(data_train.drop('reordered', axis=1), data_train.reordered)
 
-#print('The best params are: ', grid_search.best_params_)
-#print('The achieved score with these params is: ', grid_search.best_score_)
+print('The best params are: ', grid_search.best_params_)
+print('The achieved score with these params is: ', grid_search.best_score_)
 
 
 ## 4.2. Train model
 
 
-dm_train = xgb.DMatrix(data = data_train.drop('reordered', axis=1), label = data_train.reordered)
-dm_test = xgb.DMatrix(data = data_test)
+#dm_train = xgb.DMatrix(data = data_train.drop('reordered', axis=1), label = data_train.reordered)
+#dm_test = xgb.DMatrix(data = data_test)
 
 
-params = {'objective' : 'binary:logistic',
-           'tree_method' : 'gpu_hist',
-           'eval_metric' : 'logloss',
-           'subsample': 0.8, 
-           'min_child_weight': 3,
-           'colsample_bytree': 0.7,
-           'max_depth': 9, 
-           'gamma' : 0.3,
-           'lambda' : 1,
-           'eta' : 0.04}
+#params = {'objective' : 'binary:logistic',
+#           'tree_method' : 'gpu_hist',
+#           'eval_metric' : 'logloss',
+#           'subsample': 0.8, 
+#           'min_child_weight': 3,
+#           'colsample_bytree': 0.7,
+#           'max_depth': 9, 
+#           'gamma' : 0.3,
+#           'lambda' : 1,
+#           'eta' : 0.04}
 
 
-xg = xgb.train(dtrain = dm_train, params = params, num_boost_round = 1000)
+#xg = xgb.train(dtrain = dm_train, params = params, num_boost_round = 1000)
 
 
 #xgb.plot_importance(xg)
@@ -623,65 +623,65 @@ xg = xgb.train(dtrain = dm_train, params = params, num_boost_round = 1000)
 ## 4.3. Make predictions
 
 
-test_pred = (xg.predict(dm_test) >= 0.21)
-test_pred[0:20]
+#test_pred = (xg.predict(dm_test) >= 0.21)
+#test_pred[0:20]
 
 
 # 5. Prepare submission file
 
 
-data_test['prediction'] = test_pred
-data_test.head()
+#data_test['prediction'] = test_pred
+#data_test.head()
 
 
-final = data_test.reset_index()
-final = final[['product_id', 'user_id', 'prediction']]
-gc.collect()
-final.head()
+#final = data_test.reset_index()
+#final = final[['product_id', 'user_id', 'prediction']]
+#gc.collect()
+#final.head()
 
 
-orders_test = orders.loc[orders.eval_set=='test',("user_id", "order_id") ]
-orders_test.head()
+#orders_test = orders.loc[orders.eval_set=='test',("user_id", "order_id") ]
+#orders_test.head()
 
 
-final = final.merge(orders_test, on='user_id', how='left')
-final.head()
+#final = final.merge(orders_test, on='user_id', how='left')
+#final.head()
 
 
-final = final.drop('user_id', axis=1)
-final['product_id'] = final.product_id.astype(int)
+#final = final.drop('user_id', axis=1)
+#final['product_id'] = final.product_id.astype(int)
 
-del orders, test_pred
-del orders_test, data_test
-gc.collect()
+#del orders, test_pred
+#del orders_test, data_test
+#gc.collect()
 
-final.head()
+#final.head()
 
 
-d = dict()
-for row in final.itertuples():
-    if row.prediction== 1:
-        try:
-            d[row.order_id] += ' ' + str(row.product_id)
-        except:
-            d[row.order_id] = str(row.product_id)
+#d = dict()
+#for row in final.itertuples():
+#    if row.prediction== 1:
+#        try:
+#            d[row.order_id] += ' ' + str(row.product_id)
+#        except:
+#            d[row.order_id] = str(row.product_id)
 
-for order in final.order_id:
-    if order not in d:
-        d[order] = 'None'
+#for order in final.order_id:
+#    if order not in d:
+#        d[order] = 'None'
         
-gc.collect()
+#gc.collect()
 
 
-sub = pd.DataFrame.from_dict(d, orient='index')
+#sub = pd.DataFrame.from_dict(d, orient='index')
 
-sub.reset_index(inplace=True)
-sub.columns = ['order_id', 'products']
+#sub.reset_index(inplace=True)
+#sub.columns = ['order_id', 'products']
 
-sub.head()
-
-
-sub.shape[0]
+#sub.head()
 
 
-sub.to_csv('sub.csv', index=False)
+#sub.shape[0]
+
+
+#sub.to_csv('sub.csv', index=False)
