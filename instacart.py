@@ -46,7 +46,7 @@ products = pd.read_csv('../input/products.csv')
 #departments = pd.read_csv('../input/departments.csv')
 
 
-#orders = orders.loc[orders.user_id.isin(orders.user_id.drop_duplicates().sample(frac=0.1, random_state=25))]
+orders = orders.loc[orders.user_id.isin(orders.user_id.drop_duplicates().sample(frac=0.05, random_state=25))]
 
 
 orders.head()
@@ -627,7 +627,7 @@ plt.savefig(image, bbox_inches='tight')
 ## 4.3. Make predictions
 
 
-test_pred = (xg.predict(dm_test) >= 0.20)
+test_pred = (xg.predict(dm_test) >= 0.205)
 test_pred[0:20]
 
 
