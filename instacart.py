@@ -623,7 +623,7 @@ xg = xgb.train(dtrain = dm_train, params = params, num_boost_round = 1000)
 ## 4.3. Make predictions
 
 
-test_pred = (xg.predict(dm_test) >= 0.22)
+test_pred = (xg.predict(dm_test) >= 0.2)
 test_pred[0:20]
 
 
