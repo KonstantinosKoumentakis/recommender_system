@@ -618,9 +618,10 @@ params = {'objective' : 'binary:logistic',
 xg = xgb.train(dtrain = dm_train, params = params, num_boost_round = 1000)
 
 
+fig = plt.figure(figsize=(9, 11))
 xgb.plot_importance(xg)
 image = 'importance.png'
-plt.savefig(image, dpi=150)
+plt.savefig(image, bbox_inches='tight')
 
 
 ## 4.3. Make predictions
