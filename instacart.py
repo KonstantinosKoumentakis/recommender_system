@@ -10,7 +10,9 @@ import os
 import pandas as pd
 import xgboost as xgb
 from sklearn.model_selection import GridSearchCV
-#import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 import gc
 gc.enable() 
@@ -44,7 +46,7 @@ products = pd.read_csv('../input/products.csv')
 #departments = pd.read_csv('../input/departments.csv')
 
 
-#orders = orders.loc[orders.user_id.isin(orders.user_id.drop_duplicates().sample(frac=0.05, random_state=25))]
+orders = orders.loc[orders.user_id.isin(orders.user_id.drop_duplicates().sample(frac=0.05, random_state=25))]
 
 
 orders.head()
@@ -616,14 +618,15 @@ params = {'objective' : 'binary:logistic',
 xg = xgb.train(dtrain = dm_train, params = params, num_boost_round = 1000)
 
 
-#xgb.plot_importance(xg)
-#plt.show()
+xgb.plot_importance(xg)
+image = 'importance.png'
+plt.savefig(image, dpi=150)
 
 
 ## 4.3. Make predictions
 
 
-test_pred = (xg.predict(dm_test) >= 0.19)
+test_pred = (xg.predict(dm_test) >= 0.20)
 test_pred[0:20]
 
 
