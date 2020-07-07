@@ -29,10 +29,10 @@ with zipfile.ZipFile('Instacart-Market-Basket-Analysis.zip', 'r') as zip_ref:
 
 working_directory = os.getcwd()+'/input'
 os.chdir(working_directory)
-for file in os.listdir(working_directory):   # get the list of files
-    if zipfile.is_zipfile(file): # if it is a zipfile, extract it
-        with zipfile.ZipFile(file) as item: # treat the file as a zip
-           item.extractall()  # extract it in the working directory
+for file in os.listdir(working_directory):
+    if zipfile.is_zipfile(file):
+        with zipfile.ZipFile(file) as item:
+           item.extractall()
 
 
 ## 1.2. Load data
@@ -627,7 +627,7 @@ plt.savefig(image, bbox_inches='tight')
 ## 4.3. Make predictions
 
 
-test_pred = (xg.predict(dm_test) >= 0.205)
+test_pred = (xg.predict(dm_test) >= 0.2)
 test_pred[0:20]
 
 
