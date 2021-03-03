@@ -1,5 +1,5 @@
 Group university assignment for the elective courses "Specific Issues of Information Systems I" and "Specific Issues of Information Systems II":
-A classification project for predicting the next orders of Instacart's customers'
+A classification project for predicting the next orders of Instacart's customers
 
 The model was tuned and trained with the help of a craphics card on a virtual machine on Google Cloud Platform
 
