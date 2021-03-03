@@ -1,4 +1,4 @@
-Group university assignment for the lectures "Specific Issues of Information Systems I" and "Specific Issues of Information Systems II":
+Group university assignment for the elective lectures "Specific Issues of Information Systems I" and "Specific Issues of Information Systems II":
 
 A classification project for predicting customers' next orders for the company Instacart
 
