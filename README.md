@@ -5,4 +5,4 @@ The model was tuned and trained with the help of a craphics card on a virtual ma
 
 The objective was the optimization of the f1 score of the predictions and the subsequent participation in a Kaggle competition. The winner's score standed at 40.910, while we achieved a score of 38.511
 
-Course grade: 10/10
+Courses grades: 10/10
