@@ -1,5 +1,5 @@
-Team classification project for predicting customers’ next orders for a Kaggle competition organised by online supermarket Instacart.
+Recommender System for an online supermarket as part of a Kaggle competition
 
-The XGBoost model was tuned and trained with the help of a graphics card on a virtual machine on Google Cloud Platform.
+The XGBoost model was built in Python and was trained on a GPU on Google Cloud Platform
 
-The objective was the optimization of the f1 score of the predictions. The winner's score stood at 40.91, while we achieved a score of 38.51.
+The target metric was the F1 score of the predictions. The winner's score stood at 40.91, while we achieved a score of 38.51
